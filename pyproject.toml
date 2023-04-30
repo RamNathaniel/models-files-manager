@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "models-files-manager"
-version = "1.0.0"
+version = "1.0.1"
 description = "Manage saved models files, encode fields into filenames"
 readme = "README.md"
 authors = [{ name = "Ram Nathaniel", email = "ram.nathaniel@gmail.com" }]
@@ -22,7 +22,7 @@ requires-python = ">=3.7"
 dev   = ["pip-tools", "mypy", "pytest"]
 
 [project.urls]
-repository    = "https://github.com/ramnatnaniel/models-files-manager"
+repository    = "https://github.com/RamNathaniel/models-files-manager"
 documentation = "https://ramnathaniel.github.io/models-files-manager"
 
 [tool.mypy]
