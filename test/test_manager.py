@@ -21,6 +21,14 @@ def test_get_fields_values():
     assert fields['field1'] == 'value1'
     assert fields['field2'] == 'value2'
 
+    # test with more fields in name than manager - take first 2
+    fields = manager.get_fields_values('root_folder/value1_value2_value3.ext')
+
+    assert fields is not None
+    assert len(fields) == 2
+    assert fields['field1'] == 'value1'
+    assert fields['field2'] == 'value2'
+
 def test_get_file_name():
     manager = ModelsFilesManager('root_folder', ['field1', 'field2'], 'ext')
     file_name = manager.get_file_name({'field1': 'value1', 'field2': 'value2'})

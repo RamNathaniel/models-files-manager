@@ -74,10 +74,10 @@ class ModelsFilesManager:
 
         parts = [self.path_decode(p) for p in parts]
 
-        if len(parts) != len(self._fields):
-            raise Exception(f'Path {path} does not have the same number of fields as {self._fields}')
+        if len(parts) < len(self._fields):
+            raise Exception(f'Path {path} does not have all fields (expecting {self._fields})')
 
-        return {self._fields[i]: parts[i] for i in range(len(parts))}
+        return {self._fields[i]: parts[i] for i in range(len(self._fields))}
 
     def get_file_name(self, fields: dict) -> str:
         """

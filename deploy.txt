@@ -1,0 +1,12 @@
+Taken from here: https://realpython.com/pypi-publish-python-package/
+
+Update version on __init__.py and pyproject.toml
+
+deploy locally: python -m pip install -e .
+
+build: [requires: python -m pip install build twine]
+
+python -m build
+
+deploy:
+twine upload dist/*
