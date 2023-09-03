@@ -106,6 +106,18 @@ class ModelsFilesManager:
         """
         res: List[str] = []
         for (root, dirs, files) in os.walk(self._root_folder, topdown=True):
+            for filename in files:
+                if not filename.endswith('.' + self._ext):
+                    continue
+                
+                if where is not None:
+                    fields = self.get_fields_values(filename)
+                    if not where(fields):
+                        continue
+
+                fn = os.path.join(root, filename)
+                res.append(fn)
+                
             for dir in dirs:
                 dirpath = os.path.join(root, dir)
                 for (dirpath, dirnames, filenames) in os.walk(dirpath, topdown=True):
