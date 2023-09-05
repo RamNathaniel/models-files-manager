@@ -60,6 +60,7 @@ def test_where():
         manager = ModelsFilesManager(root, ['field1', 'field2'], 'ext')
         fn1 = manager.get_file_name({'field1': 'value1', 'field2': 'value2'})
         fn2 = manager.get_file_name({'field1': 'value3', 'field2': 'value4'})
+        fn3 = manager.get_file_name({'field1': 'value5', 'field2': 'value6'})
 
         # create folder
         os.makedirs(os.path.join(root, 'folder1'))
@@ -71,12 +72,16 @@ def test_where():
         with open(os.path.join(root, 'folder2', fn2), 'w') as f:
             f.write('data')
 
+        with open(os.path.join(root, fn3), 'w') as f:
+            f.write('data')
+
         files = manager.get_model_files()
 
         assert files is not None
-        assert len(files) == 2
+        assert len(files) == 3
         assert os.path.join(root, 'folder1', fn1) in files
         assert os.path.join(root, 'folder2', fn2) in files
+        assert os.path.join(root, fn3) in files
 
         files = manager.get_model_files(lambda d: d['field1'] == 'value1')
 

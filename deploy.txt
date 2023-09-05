@@ -6,7 +6,7 @@ deploy locally: python -m pip install -e .
 
 build: [requires: python -m pip install build twine]
 
-python -m build
+python3 -m build
 
 deploy:
 twine upload dist/*

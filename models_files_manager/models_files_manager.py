@@ -1,4 +1,5 @@
 import os
+import glob
 from typing import List
 
 
@@ -18,6 +19,10 @@ class ModelsFilesManager:
         self._root_folder = root_folder
         self._fields = fields
         self._ext = ext
+
+        if self._ext.startswith('.'):
+            self._ext = self._ext[1:]
+            
         pass
 
 
@@ -104,33 +109,18 @@ class ModelsFilesManager:
         Returns:
             List[str]: List of paths to models
         """
-        res: List[str] = []
-        for (root, dirs, files) in os.walk(self._root_folder, topdown=True):
-            for filename in files:
-                if not filename.endswith('.' + self._ext):
+        if self._ext is None:
+            files = glob.glob(self._root_folder + '/**/*', recursive=True)
+        else:
+            files = glob.glob(self._root_folder + '/**/*.' + self._ext, recursive=True)
+
+        res = []
+        for fn in files:
+            if where is not None:
+                fields = self.get_fields_values(os.path.basename(fn))
+                if not where(fields):
                     continue
-                
-                if where is not None:
-                    fields = self.get_fields_values(filename)
-                    if not where(fields):
-                        continue
 
-                fn = os.path.join(root, filename)
-                res.append(fn)
-                
-            for dir in dirs:
-                dirpath = os.path.join(root, dir)
-                for (dirpath, dirnames, filenames) in os.walk(dirpath, topdown=True):
-                    for filename in filenames:
-                        if not filename.endswith('.' + self._ext):
-                            continue
-                        
-                        if where is not None:
-                            fields = self.get_fields_values(filename)
-                            if not where(fields):
-                                continue
-
-                        fn = os.path.join(dirpath, filename)
-                        res.append(fn)
+            res.append(fn)
         
         return res

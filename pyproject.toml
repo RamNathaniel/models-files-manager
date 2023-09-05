@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "models-files-manager"
-version = "1.0.3"
+version = "1.0.5"
 description = "Manage saved models files, encode fields into filenames"
 readme = "README.md"
 authors = [{ name = "Ram Nathaniel", email = "ram.nathaniel@gmail.com" }]
